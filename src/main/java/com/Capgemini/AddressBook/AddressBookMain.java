@@ -1,5 +1,4 @@
 package com.Capgemini.AddressBook;
-
 import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
@@ -120,7 +119,7 @@ public class AddressBookMain {
 				AddressBook a4 = AddressBook.hm.get(abook4);
 				System.out.println("Writing to file");
 				try {
-					a4.writeToCSVFile(abook4);
+					a4.writeToJsonFile(abook4);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -133,7 +132,7 @@ public class AddressBookMain {
 				AddressBook a5 = AddressBook.hm.get(abook5);
 				System.out.println("Reading from file");
 				try {
-					a5.readFromCSVFile(abook5);
+					a5.readFromJsonFile(abook5);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -143,3 +142,4 @@ public class AddressBookMain {
 		}
 	}
 }
+/*.....*/
