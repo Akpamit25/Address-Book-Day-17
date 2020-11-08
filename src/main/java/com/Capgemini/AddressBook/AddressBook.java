@@ -166,6 +166,7 @@ public class AddressBook {
 		}
 		list.remove(pos);
 	}
+	
 	// UC 14
 	public void writeToCSVFile(String AddressBookName)
 			throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
@@ -268,13 +269,13 @@ public class AddressBook {
 		return this.addressBookList.stream().filter(i -> i.getFirstName().equals(firstName)).findFirst().orElse(null);
 	}
 
-	public void updateContact(String firstName, String ph_no) throws AddressBookException {
-		int result = addressBookDBService.updateAddressBook(firstName, ph_no);
+	public void updateContact(String firstName, String phoneNumber) throws AddressBookException {
+		int result = addressBookDBService.updateAddressBook(firstName, phoneNumber);
 		if (result == 0)
 			return;
 		AddressBookContacts addressBookContacts = this.getContactData(firstName);
 		if (addressBookContacts != null)
-			addressBookContacts.ph_no = ph_no;
+			addressBookContacts.phoneNumber = phoneNumber;
 
 	}
 
@@ -305,7 +306,7 @@ public class AddressBook {
 				System.out.println("Contact Being Added: " + Thread.currentThread().getName());
 				try {
 					this.addContactToAddressBook(contact.firstName, contact.lastName, contact.address, contact.city,
-							contact.state, contact.zip, contact.ph_no, contact.email, contact.addressBookType,
+							contact.state, contact.zip, contact.phoneNumber, contact.email, contact.addressBookType,
 							contact.addressBookName);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -330,6 +331,11 @@ public class AddressBook {
 	public int countEntries() {
 		System.out.println(addressBookList.size());
 		return this.addressBookList.size();
+	}
+
+	public void addContact(AddressBookContacts addressBookContact) {
+		this.addressBookList.add(addressBookContact);
+
 	}
 
 }
