@@ -25,6 +25,8 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+import database.AddressBookDBService;
+
 public class AddressBook {
 	public static Map<String, AddressBook> hm = new HashMap<String, AddressBook>();
 	public static Map<String, ArrayList<AddressBookContacts>> cityList = new HashMap<>();
@@ -38,18 +40,27 @@ public class AddressBook {
 	Scanner sc = new Scanner(System.in);
 
 	ArrayList<AddressBookContacts> list;
+	private List<AddressBookContacts> addressBookList;
+	private AddressBookDBService addressBookDBService;
+
+	public AddressBook(String addressBookName) throws IOException {
+		this();
+		this.addressBookName = addressBookName;
+		addressBookDBService = AddressBookDBService.getInstance();
+	}
 
 	public AddressBook() {
 		list = new ArrayList<AddressBookContacts>();
+		addressBookDBService = AddressBookDBService.getInstance();
 
 	}
 
-	public AddressBook(String addressBookName) {
-		list = new ArrayList<AddressBookContacts>();
-		this.addressBookName = addressBookName;
-
-	}
-
+	/*
+	 * public AddressBook(String addressBookName) { list = new
+	 * ArrayList<AddressBookContacts>(); this.addressBookName = addressBookName;
+	 * 
+	 * }
+	 */
 	public AddressBookContacts create(String firstName, String lastName, String address, String city, String state,
 			int zip, String ph_no, String email) {
 
@@ -156,6 +167,7 @@ public class AddressBook {
 		list.remove(pos);
 	}
 
+
 	// UC 14
 	public void writeToCSVFile(String AddressBookName)
 			throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
@@ -241,5 +253,9 @@ public class AddressBook {
 			System.out.println("Email : " + a.email);
 			System.out.println("**********************************");
 		}
+	}
+	public List<AddressBookContacts> readAddressBookData() {
+		addressBookList = addressBookDBService.readData();
+		return addressBookList;
 	}
 }
