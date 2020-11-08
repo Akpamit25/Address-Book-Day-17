@@ -1,6 +1,7 @@
 package com.Capgemini.AddressBook;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
@@ -56,4 +57,20 @@ public class AddressBookTest {
 		boolean result = addressBook.checkAddressBookDataInSyncWithDB("Amit");
 		Assert.assertTrue(result);
 	}
+
+	
+	@Test
+	public void givenManyEmployees_WhenAddedToDatabaseWithThreads_ShouldSyncWithDB() {
+		AddressBook addressBook = new AddressBook();
+		AddressBookContacts[] contacts = {
+				new AddressBookContacts("Amit", "Kumar", "Asansol", "Asansol", "West Bengal", 713326, "9149947504", "amit@gmail.com",
+						LocalDate.parse("2020-01-05")),
+				new AddressBookContacts("Neeraj", "Kumar", "Bawal", "Rewari", "Haryana", 123501, "9413300163", "neeraj@gmail.com",
+						LocalDate.parse("2020-01-06")) };
+		addressBook.addMultipleAddressContacts(Arrays.asList(contacts));
+		long entries = addressBook.readAddressBookData().size();
+		Assert.assertEquals(9, entries);
+	}
 }
+}
+
