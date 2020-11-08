@@ -47,4 +47,13 @@ public class AddressBookTest {
 		Assert.assertEquals(5, cityCount);
 		Assert.assertEquals(5, stateCount);
 	}
+	
+	@Test
+	public void givenData_whenAdded_ShouldMatchEmployeeCount() {
+		AddressBook addressBook = new AddressBook();
+		addressBook.readAddressBookData();
+		addressBook.addContactToAddressBook("Amit", "Kumar", "Asansol", "Asansol", "West Bengal", 713326, "9149947504", "amit@gmail.com", "book1", "Business"); 
+		boolean result = addressBook.checkAddressBookDataInSyncWithDB("Mini");
+		Assert.assertTrue(result);
+	}
 }

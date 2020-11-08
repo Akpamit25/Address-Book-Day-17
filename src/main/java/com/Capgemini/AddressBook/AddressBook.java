@@ -254,6 +254,7 @@ public class AddressBook {
 			System.out.println("**********************************");
 		}
 	}
+	
 	public List<AddressBookContacts> readAddressBookData() {
 		addressBookList = addressBookDBService.readData();
 		return addressBookList;
@@ -290,4 +291,11 @@ public class AddressBook {
 	public int getContactsByState(String state) {
 		return addressBookDBService.getContactByState(state);
 	}
+
+	public void addContactToAddressBook(String firstName, String lastName, String address, String city, String state,
+			int zip, String phone, String email, String addressBookName, String addressBookType) {
+		addressBookDBService.addContact(firstName, lastName, address, city, state, zip, phone, email, addressBookType,
+				addressBookName);
+
+	}/* */
 }

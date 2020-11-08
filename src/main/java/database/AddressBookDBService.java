@@ -59,7 +59,7 @@ public class AddressBookDBService {
 	private Connection getConnection() throws SQLException {
 		String jdbcURL = "jdbc:mysql://localhost:3306/addressBook_system?useSSL=false";
 		String userName = "root";
-		String password = "Dhpatil@23";
+		String password = "training_capg";
 		Connection con;
 		System.out.println("Connecting to database:" + jdbcURL);
 		con = DriverManager.getConnection(jdbcURL, userName, password);
@@ -181,5 +181,29 @@ public class AddressBookDBService {
 			e.printStackTrace();
 		}
 		return count;
+	}
+
+	public void addContact(String firstName, String lastName, String address, String city, String state, int zip,
+			String phone, String email, String addressBookName, String addressBookType) {
+		String sql = String.format(
+				"insert into contact(firstName,lastName,address,city,state,zip,phoneNumber,email)"
+						+ "values ('%s','%s','%s','%s','%s','%d','%s','%s')",
+				firstName, lastName, address, city, state, zip, phone, email);
+
+		try (Connection connection = this.getConnection()) {
+			Statement statement = connection.createStatement();
+			int rowsAffected = statement.executeUpdate(sql, statement.RETURN_GENERATED_KEYS);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String sqlNext = String.format(
+				"insert into addressBook(AddressBookType,AddressBookName)" + "values ('%s','%s')", addressBookType,
+				addressBookName);
+		try (Connection connection = this.getConnection()) {
+			Statement statement = connection.createStatement();
+			int rowsAffected = statement.executeUpdate(sqlNext, statement.RETURN_GENERATED_KEYS);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
