@@ -9,6 +9,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,7 +25,6 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-
 import database.AddressBookDBService;
 import exception.AddressBookException;
 
@@ -168,7 +168,6 @@ public class AddressBook {
 		list.remove(pos);
 	}
 
-
 	// UC 14
 	public void writeToCSVFile(String AddressBookName)
 			throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
@@ -259,6 +258,7 @@ public class AddressBook {
 		addressBookList = addressBookDBService.readData();
 		return addressBookList;
 	}
+
 	public boolean checkAddressBookDataInSyncWithDB(String firstName) {
 		List<AddressBookContacts> contactList = addressBookDBService.getContactData(firstName);
 		return contactList.get(0).equals(getContactData(firstName));
@@ -277,5 +277,9 @@ public class AddressBook {
 		if (addressBookContacts != null)
 			addressBookContacts.ph_no = ph_no;
 
+	}
+
+	public List<AddressBookContacts> getInDateRange(LocalDate startDate, LocalDate endDate) {
+		return addressBookDBService.getContactInRange(startDate, endDate);
 	}
 }
