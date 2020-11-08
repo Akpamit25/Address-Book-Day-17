@@ -12,9 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-
 import com.Capgemini.AddressBook.AddressBookContacts;
-
 import exception.AddressBookException;
 
 public class AddressBookDBService {
@@ -61,7 +59,7 @@ public class AddressBookDBService {
 	private Connection getConnection() throws SQLException {
 		String jdbcURL = "jdbc:mysql://localhost:3306/addressBook_system?useSSL=false";
 		String userName = "root";
-		String password = "training_capg";
+		String password = "Dhpatil@23";
 		Connection con;
 		System.out.println("Connecting to database:" + jdbcURL);
 		con = DriverManager.getConnection(jdbcURL, userName, password);
@@ -151,5 +149,37 @@ public class AddressBookDBService {
 			e.printStackTrace();
 		}
 		return addressBookContactsList;
+	}
+
+	public int getContactByCity(String city) {
+		String sql = String.format("SELECT * FROM contact WHERE city = '%s';", city);
+		int count = 0;
+		List<AddressBookContacts> addressBookContactsList = new ArrayList<>();
+		try (Connection connection = this.getConnection();) {
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			while (resultSet.next()) {
+				count++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+
+	public int getContactByState(String state) {
+		String sql = String.format("SELECT * FROM contact WHERE state = '%s';", state);
+		int count = 0;
+		List<AddressBookContacts> addressBookContactsList = new ArrayList<>();
+		try (Connection connection = this.getConnection();) {
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			while (resultSet.next()) {
+				count++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 }
