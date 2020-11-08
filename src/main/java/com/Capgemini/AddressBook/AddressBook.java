@@ -56,12 +56,11 @@ public class AddressBook {
 
 	}
 
-	/*
-	 * public AddressBook(String addressBookName) { list = new
-	 * ArrayList<AddressBookContacts>(); this.addressBookName = addressBookName;
-	 * 
-	 * }
-	 */
+	public AddressBook(List<AddressBookContacts> asList) {
+		this();
+		this.addressBookList = new ArrayList<>(asList);
+	}
+
 	public AddressBookContacts create(String firstName, String lastName, String address, String city, String state,
 			int zip, String ph_no, String email) {
 
@@ -167,7 +166,6 @@ public class AddressBook {
 		}
 		list.remove(pos);
 	}
-
 	// UC 14
 	public void writeToCSVFile(String AddressBookName)
 			throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
@@ -327,6 +325,11 @@ public class AddressBook {
 			}
 		}
 		System.out.println(this.addressBookList);
+	}
+
+	public int countEntries() {
+		System.out.println(addressBookList.size());
+		return this.addressBookList.size();
 	}
 
 }
