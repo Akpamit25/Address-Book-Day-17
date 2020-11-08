@@ -75,6 +75,7 @@ public class AddressBookTest {
 		boolean result = addressBook.checkAddressBookDataInSyncWithDB("Amit");
 		Assert.assertTrue(result);
 	}
+
 	
 	@Test
 	public void givenManyEmployees_WhenAddedToDatabaseWithThreads_ShouldSyncWithDB() {
@@ -88,6 +89,7 @@ public class AddressBookTest {
 		long entries = addressBook.readAddressBookData().size();
 		Assert.assertEquals(9, entries);
 	}
+<<<<<< UC22
 	
 	@Test
 	public void givenContactDataInJsonServer_whenRetreived_shouldMatchCount() throws IOException {
@@ -96,6 +98,7 @@ public class AddressBookTest {
 		int entries = addressBook.countEntries();
 		Assert.assertEquals(11, entries);
 	}
+<<<<<< UC23
 	
 	@Test
 	public void givenMultipleContactData_WhenAddedToJsonServer_ShouldMatchSize() throws IOException {
@@ -128,3 +131,8 @@ public class AddressBookTest {
 	}
 
 }
+}
+}
+}
+
+>>>>> master
