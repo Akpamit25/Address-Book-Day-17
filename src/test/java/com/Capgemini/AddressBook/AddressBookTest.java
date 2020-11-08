@@ -57,6 +57,7 @@ public class AddressBookTest {
 		boolean result = addressBook.checkAddressBookDataInSyncWithDB("Amit");
 		Assert.assertTrue(result);
 	}
+
 	
 	@Test
 	public void givenManyEmployees_WhenAddedToDatabaseWithThreads_ShouldSyncWithDB() {
@@ -71,3 +72,5 @@ public class AddressBookTest {
 		Assert.assertEquals(9, entries);
 	}
 }
+}
+
